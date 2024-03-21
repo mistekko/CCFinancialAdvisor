@@ -34,14 +34,16 @@ console.table(table_contents);
 //print what purchase would be the best so that the user doesn't have to go through the entire table, potentially making mistakes
 var best_cpcps = Number.MAX_SAFE_INTEGER;
 var best_name;
+var best_price;
 for (i in table_contents) {
   if (cpcps_array[i] < best_cpcps) {
       best_cpcps = cpcps_array[i];
-      best_name = table_contents[i].name;
+      best_name  = table_contents[i].name;
+      best_price = table_contents[i].price;
   }
 }
 
-console.log(`Best option: ${best_name} w/ ${Beautify(best_cpcps)}`);
+console.log(`Best option: ${best_name} w/ ${Beautify(best_cpcps)} (${best_price})`);
 
     
     

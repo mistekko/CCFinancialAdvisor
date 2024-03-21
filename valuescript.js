@@ -19,7 +19,6 @@ for (var i = 0; i <= 19; i++) {
   
     if (cps > 0) {
 	var cpcps = price_real / cps;
-	console.log("added calculated cpcps: " + cpcps);
 	cpcps_array.push(cpcps);
 	cpcps = Beautify(cpcps,3);
 	cps = Beautify(cps,3);

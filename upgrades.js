@@ -1,27 +1,35 @@
 var upgrade_arr = [];
 var unformated_arr = [];
+var append = false;
 
 for (var i = 0; i < Game.UpgradesInStore.length; i++) {
-    upgrade = Game.UpgradesById[Game.UpgradesInStore[i].id]
-    var name  = upgrade.name; //nesting the Game dot expressions may not be necessary: UpgradesInStore may return the whole upgrade
+    upgrade = Game.UpgradesInStore[i]
+    var name  = upgrade.name; 
     var price = upgrade.basePrice;
 
-    //if cookie: //buildingTie: 0
-    //get cookie mult
-    //get current cps
-    //current cps * (1 + mult) #cps after buying upgrade
-    //ans - current cps #cps gain
-    //price / cps gain
-
-
-    if (upgrade.buildingTie != 0) { //if it's a building upgrade
+    //if cookie: pool prop == 'cookie'
+    if (upgrade.pool=='cookie') {
+	var target = 'cookie production';
+	var mult = upgrade.power / 100;
+	var cps_current = Game.cookiesPs;
+	append = true;
+	var cps_gain = cps_current * mult;
+	var cpcps = price / cps_gain
+    }
+    
+    else if (upgrade.buildingTie != 0) { //if it's a building upgrade
 	var building = Game.UpgradesInStore[i].buildingTie;
-	var cps = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
-	var cpcps = price / cps;
-	upgrade_arr.push({name:`${name}`,target:`${building.name}`,price:`${Beautify(price)}`,cps:`${Beautify(cps)}`,cpcps:`${Beautify(cpcps)}`});
+	var target = building.name
+	var cps_gain = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
+	append = true;
     }
 	
 
+    if (append) {
+	var cpcps = price / cps_gain;
+	upgrade_arr.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
+	append = false;
+    }
     
     
 }

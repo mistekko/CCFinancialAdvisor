@@ -1,5 +1,5 @@
 var upgrade_arr = [];
-var unformated_arr = [];
+var unformatted_arr = [];
 var append = false;
 
 for (var i = 0; i < Game.UpgradesInStore.length; i++) {
@@ -28,9 +28,26 @@ for (var i = 0; i < Game.UpgradesInStore.length; i++) {
     if (append) {
 	var cpcps = price / cps_gain;
 	upgrade_arr.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
+	unformatted_arr.push({name:`${name}`,target:`${target}`,price:price,cps:`${cps_gain}`,cpcps:cpcps});
 	append = false;
     }
     
     
 }
 console.table(upgrade_arr);
+
+var best_cpcps = Number.MAX_SAFE_INTEGER;
+var best_name;
+var best_price;
+for (i in unformatted_arr) {
+    if (unformatted_arr[i].cpcps < best_cpcps) {
+      best_cpcps = unformatted_arr[i].cpcps;
+      best_name  = unformatted_arr[i].name;
+      best_price = unformatted_arr[i].price;
+  }
+}
+ 
+console.log(`Best option: ${best_name} w/ ${Beautify(best_cpcps)} (${Beautify(Number(best_price))})`);
+
+    
+    

@@ -24,8 +24,10 @@ Load the scripts by copying the code of each script (either by downloading it an
 ## Notes  
 
  * I have built and tested these scripts only on firefox and currently have no intention to support compatibility on any other platform or browser. If they work there, great; if not, that is not my problem.
+ * Do NOT buy any Grandma upgrades based off of upgrades.js' advice. It is buggy and does not currently work.
  
 ## To-do  
 
  * Merge the scripts into one single file 
  * Find an output medium other than the console
+ * Add support for more upgrade types in upgrades.js

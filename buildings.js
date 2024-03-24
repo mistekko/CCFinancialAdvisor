@@ -1,4 +1,4 @@
-var get_best_value = function () {
+var get_best_buildings = function () {
 
     //note: cpcps = cookies per cookies per second; the number of cookies you will spend divided by the amount by which it will increase your total cpcps
 

@@ -34,5 +34,5 @@ var get_best_buildings = function () {
     }
 
     console.table(table_contents);
-    console.log(`Best option: ${best_value.name} w/ ${Beautify(best_value.cpcps)} (${best_value.price})`);
+    console.log(`Best option: ${best_value.name} w/ ${Beautify(best_value.cpcps)} (${Beautify(best_value.price)})`);
 }

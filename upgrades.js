@@ -1,6 +1,5 @@
 var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally target the building they "benefit" but do not double their cps!!!
-    var upgrade_arr = [];
-    var unformatted_arr = [];
+    var upgrade_table_contents = [];
     var append = false;
 
     var current_total_cps = Game.cookiesPs;
@@ -33,8 +32,7 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
 	
 	if (append) {
 	    cpcps = price / cps_gain;
-	    upgrade_arr.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
-	    unformatted_arr.push({name:`${name}`,target:`${target}`,price:price,cps:`${cps_gain}`,cpcps:cpcps});
+	    upgrade_table_contents.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
 	    append = false;
 	}
 
@@ -45,7 +43,7 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
     }
 
     
-    console.table(upgrade_arr);
+    console.table(upgrade_table_contents);
     console.log(`Best option: ${best_upgrade.name} w/ ${Beautify(best_upgrade.cpcps)} (${Beautify(best_upgrade.price)})`);
 }
     

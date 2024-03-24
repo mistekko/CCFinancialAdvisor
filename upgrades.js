@@ -1,33 +1,36 @@
-const upgrades = function () {
+var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally target the building they "benefit" but do not double their cps!!!
     var upgrade_arr = [];
     var unformatted_arr = [];
     var append = false;
 
+    var current_total_cps = Game.cookiesPs;
+    
+    var upgrade;
+    var name, price, target, mult, cps_gain, cpcps, building;
+
     for (var i = 0; i < Game.UpgradesInStore.length; i++) {
 	upgrade = Game.UpgradesInStore[i]
-	var name  = upgrade.name; 
-	var price = upgrade.basePrice;
+	name  = upgrade.name; 
+	price = upgrade.basePrice;
 
 	//if cookie: pool prop == 'cookie'
 	if (upgrade.pool=='cookie') {
-	    var target = 'cookie production';
-	    var mult = upgrade.power / 100;
-	    var cps_current = Game.cookiesPs;
+	    target = 'cookie production';
+	    mult = upgrade.power / 100;
+	    cps_gain = current_total_cps * mult;
 	    append = true;
-	    var cps_gain = cps_current * mult;
-	    var cpcps = price / cps_gain
 	}
 	
 	else if (upgrade.buildingTie != 0) { //if it's a building upgrade
-	    var building = Game.UpgradesInStore[i].buildingTie;
-	    var target = building.name
-	    var cps_gain = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
+	    building = upgrade.buildingTie; //bug
+	    target = building.name
+	    cps_gain = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
 	    append = true;
 	}
 	
 
 	if (append) {
-	    var cpcps = price / cps_gain;
+	    cpcps = price / cps_gain;
 	    upgrade_arr.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
 	    unformatted_arr.push({name:`${name}`,target:`${target}`,price:price,cps:`${cps_gain}`,cpcps:cpcps});
 	    append = false;

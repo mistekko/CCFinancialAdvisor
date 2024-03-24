@@ -4,12 +4,14 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
     var append = false;
 
     var current_total_cps = Game.cookiesPs;
-    
+
     var upgrade;
     var name, price, target, mult, cps_gain, cpcps, building;
 
+    var best_upgrade = {cpcps:Number.MAX_SAFE_INTEGER,name:"",price:0};
+
     for (var i = 0; i < Game.UpgradesInStore.length; i++) {
-	upgrade = Game.UpgradesInStore[i]
+	upgrade = Game.UpgradesInStore[i];
 	name  = upgrade.name; 
 	price = upgrade.basePrice;
 
@@ -27,30 +29,23 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
 	    cps_gain = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
 	    append = true;
 	}
-	
 
+	
 	if (append) {
 	    cpcps = price / cps_gain;
 	    upgrade_arr.push({name:`${name}`,target:`${target}`,price:`${Beautify(price)}`,cps:`${Beautify(cps_gain)}`,cpcps:`${Beautify(cpcps)}`});
 	    unformatted_arr.push({name:`${name}`,target:`${target}`,price:price,cps:`${cps_gain}`,cpcps:cpcps});
 	    append = false;
 	}
-	
-	
-    }
-    console.table(upgrade_arr);
 
-    var best_cpcps = Number.MAX_SAFE_INTEGER;
-    var best_name;
-    var best_price;
-    for (i in unformatted_arr) {
-	if (unformatted_arr[i].cpcps < best_cpcps) {
-	    best_cpcps = unformatted_arr[i].cpcps;
-	    best_name  = unformatted_arr[i].name;
-	    best_price = unformatted_arr[i].price;
-	}
+
+	if (cpcps < best_upgrade.cpcps) {
+	    best_upgrade = {cpcps:cpcps,name:name,price:price};
+	}	
     }
+
     
-    console.log(`Best option: ${best_name} w/ ${Beautify(best_cpcps)} (${Beautify(best_price)})`);
+    console.table(upgrade_arr);
+    console.log(`Best option: ${best_upgrade.name} w/ ${Beautify(best_upgrade.cpcps)} (${Beautify(best_upgrade.price)})`);
 }
     

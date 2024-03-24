@@ -1,39 +1,38 @@
-const bV = function () {
-    var table_contents = []; //to store human-readable data
-    var cpcps_array = []; //to store unformated data
+var get_best_value = function () {
+
+    //note: cpcps = cookies per cookies per second; the number of cookies you will spend divided by the amount by which it will increase your total cpcps
+
+    
+    var table_contents = []; //to store human-readable data 
 
     var building;
     var name, quantity, price_raw, cps, cpcps;
-    
+
+    var best_value = {cpcps:Number.MAX_SAFE_INTEGER,name:"",price:0};
+
+    //create table containing each building an their respective pricese/cpcps value
     for (var i = 0; i <= 19; i++) {
 	building = Game.ObjectsById[i]
 	
 	name = building.name;
-	price_raw = building.price;
+	price = building.price;
 	quantity = building.amount;
 	
 	cps = Game.cookiesPsByType[name] * Game.globalCpsMult / quantity; 
-  		
-	if (cps > 0) {
-	    cpcps = price_raw / cps;
-	    cpcps_array.push(cpcps);	    
-    	    table_contents.push({name:`${name}`,price:`${Beautify(price_raw)}`,cps:`${Beautify(cps)}`,cpcps:`${Beautify(cpcps)}`});
-	} else break; //this improves the efficiency slightly, but causes bugs for any psychos who completely skip any building.
-    }
-
-    console.table(table_contents);
 
 
-    //print what purchase would be the best so that the user doesn't have to go through the entire table, potentially making mistakes
-    var best_cpcps = Number.MAX_SAFE_INTEGER;
-    var best_name, best_price
-    for (i in table_contents) {
-	if (cpcps_array[i] < best_cpcps) {
-	    best_cpcps = cpcps_array[i];
-	    best_name  = table_contents[i].name;
-	    best_price = table_contents[i].price;
+	
+	if (cps > 0) cpcps = price / cps; 
+	else break; //if the cps !> 0, the building doesn't exist. May exit early if the player skips buying some building
+
+    	table_contents.push({name:`${name}`,price:`${Beautify(price)}`,cps:`${Beautify(cps)}`,cpcps:`${Beautify(cpcps)}`});
+	
+	//print most efficient purchase
+	if (cpcps < best_value.cpcps) {
+	    best_value = {cpcps:cpcps,name:name,price:price};
 	}
     }
 
+    console.table(table_contents);
     console.log(`Best option: ${best_name} w/ ${Beautify(best_cpcps)} (${best_price})`);
 }

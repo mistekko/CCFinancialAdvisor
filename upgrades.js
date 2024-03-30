@@ -1,4 +1,5 @@
-var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally target the building they "benefit" but do not double their cps!!!
+var get_best_upgrades = function () {
+    //get pool for kitten upgrades: Check if the first word is kitten. q
     var upgrade_table_contents = [];
     var append = false;
 
@@ -7,6 +8,8 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
     var upgrade;
     var name, price, target, mult, cps_gain, cpcps, building;
 
+    var granny_quantity, gs_per_percent;
+
     var best_upgrade = {cpcps:Number.MAX_SAFE_INTEGER,name:"",price:0};
 
     for (var i = 0; i < Game.UpgradesInStore.length; i++) {
@@ -14,8 +17,17 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
 	name  = upgrade.name; 
 	price = upgrade.basePrice;
 
-	//if cookie: pool prop == 'cookie'
-	if (upgrade.pool=='cookie') {
+	if (Game.GrandmaSynergies.indexOf(name) > -1) { //if it's a grandma synergy
+	    building = upgrade.buildingTie;
+	    granny_quantity = Game.Objects["Grandma"].amount;
+	    gs_per_percent = (building.id - 1);
+	    mult = (granny_quantity / gs_per_percent / 100);
+	    console.log(mult)
+	    cps_gain = building.storedTotalCps * Game.globalCpsMult * mult;
+	    append = true;
+	}
+	    	
+	else if (upgrade.pool=='cookie') { //if it's a cookie production multiplier
 	    target = 'cookie production';
 	    mult = upgrade.power / 100;
 	    cps_gain = current_total_cps * mult;
@@ -23,7 +35,7 @@ var get_best_upgrades = function () { //BUG!!! Grandmother upgrades nominally ta
 	}
 	
 	else if (upgrade.buildingTie != 0) { //if it's a building upgrade
-	    building = upgrade.buildingTie; //bug
+	    building = upgrade.buildingTie;
 	    target = building.name
 	    cps_gain = Game.cookiesPsByType[building.name] * Game.globalCpsMult;
 	    append = true;

@@ -24,10 +24,8 @@ var get_best_upgrades = function () {
 
 	if (Game.UpgradesByPool['kitten'].indexOf(upgrade) > 0) { //if the upgrade is in the list of upgrades that are kitten upgrades because Orteil couldn't be arsed to actually use the pool prop consistently	    
 	    //the following code was taken directly from cookie clicker source code
-	    //start stolen code //it would really be nice if milkMult (here milk_multiplier) was accessible from main.js so I wouldn't have to steal code and blaot this program!
-	    console.log("kitty found")
-	    
-	    mult = 1; var milk_multiplier=1;
+	    //start stolen code:
+	    milk_multiplier=1;
 
 	    if (Game.Has('Santa\'s milk and cookies')) milk_multiplier*=1.05;
 	    //if (Game.hasAura('Breath of Milk')) milkMult*=1.05;
@@ -43,12 +41,8 @@ var get_best_upgrades = function () {
 
 	    milk_multiplier *= Game.milkProgress;
 
-	    let a = 1 
-	    for (var j = 0; j < specific_kitten_multiplier.length; j++) 
-		if (Game.Has(Game.UpgradesByPool['kitten'][j].name)) 
-		    mult *= (1 + specific_kitten_multiplier[j] * milk_multiplier);
-	    mult *= (1 + specific_kitten_multiplier[Game.UpgradesByPool['kitten'].indexOf(upgrade)] * milk_multiplier);
-	    cps_gain = current_total_cps / Game.cookiesMultByType['kittens'] * mult - Game.cookiesPs;
+	    mult = (1 + specific_kitten_multiplier[Game.UpgradesByPool['kitten'].indexOf(upgrade)] * milk_multiplier);
+	    cps_gain = current_total_cps * mult - Game.cookiesPs;
 	    append = true
 	}
 	

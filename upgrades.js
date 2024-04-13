@@ -22,7 +22,8 @@ var get_best_upgrades = function () {
 	name    = upgrade.name; 
 	price   = upgrade.basePrice;
 
-	if (Game.UpgradesByPool['kitten'].indexOf(upgrade) > 0) { //if the upgrade is in the list of upgrades that are kitten upgrades because Orteil couldn't be arsed to actually use the pool prop consistently	    
+	if (Game.UpgradesByPool['kitten'].indexOf(upgrade) > 0) { //if the upgrade is in the list of upgrades that are kitten upgrades because Orteil couldn't be arsed to actually use the pool prop consistently
+	    target = 'kitten efficiency';
 	    //the following code was taken directly from cookie clicker source code
 	    //start stolen code:
 	    milk_multiplier=1;
@@ -48,6 +49,7 @@ var get_best_upgrades = function () {
 	
 	else if (Game.GrandmaSynergies.indexOf(name) > -1) { //if it's a grandma synergy
 	    building = upgrade.buildingTie;
+	    target = building + ' (grandma synergy)';
 	    granny_quantity = Game.Objects["Grandma"].amount;
 	    gs_per_percent = (building.id - 1);
 	    mult = (granny_quantity / gs_per_percent / 100);

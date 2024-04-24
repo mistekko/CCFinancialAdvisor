@@ -25,5 +25,5 @@ var achievement_bonus = () => {
     for (var j = 0; j < specific_kitten_multiplier.length; j++) 
 	if (Game.Has(Game.UpgradesByPool['kitten'][j].name)) 
 	    kitten_multiplier *= (1 + specific_kitten_multiplier[j] * milk_multiplier);
-    return Game.cookiesPs / Game.cookiesMultByType['kittens'] * kitten_multiplier - Game.cookiesPs;
+    return Beautify(Game.cookiesPs / Game.cookiesMultByType['kittens'] * kitten_multiplier - Game.cookiesPs); //beautify is a function from the cookie clicker source code
 }    

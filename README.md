@@ -16,17 +16,17 @@ No installation is necessary
 Load the scripts by copying the code of each script (either by downloading it and opening it or by simply getting it right from Github) and pasting it into the javascript console for the Cookie Clicker tab. Then, invoke the scripts by running (typing and pressing enter):  
 
  * `get_best_upgrade()`
-   * to find the most cost-effective building
+   * to find the most cost-effective upgrade (not all upgrades are guaranteed to be considered by this script)  
  * `get_best_building()`
-   * to find the most cost-effective building
- *`'get_best_upgrade(); get_best_building()`
+   * to find the most cost-effective building  
+ * `get_best_upgrade(); get_best_building()`
    * to find both in one fell swoop
  * achievement_bonus()
    * to get the increase in CPS resulting from achieving another achievement
 
 ## Notes  
 
- * I have built and tested these scripts only on firefox and currently have no intention to support compatibility on any other platform or browser. If they work there, great; if not, that is not my problem.
+ * I have built and tested these scripts only on firefox and currently have no intention to support compatibility on any other platform or browser. If they work there, great; if not, that is not my problem until you open a pull-request or issue!
  
 ## To-do  
 

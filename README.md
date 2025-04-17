@@ -1,28 +1,14 @@
 # CCFinancialAdvisor
 ## Overview
-This repo contains a couple of scripts for the [Cookie Clicker](https://orteil.dashnet.org/cookieclicker/) browser game: 
+This repo contains a script for the [Cookie Clicker](https://orteil.dashnet.org/cookieclicker/) browser game which declares the following functions:
 
- * upgrades.js looks through the upgrades currently in the store and determines which is the most cost-effective choice for increasing CPS (Cookies Per Second)
- * buildings.js looks through the buildings you have unlocked and determines the same
- * achievement-gain.js reports the CPS to be gained from obtaining the next achievement
+ * `get_best_upgrades`, which prints a table of upgrades and evaluates which one is best.
+ * `get_best_buildings`, which does the same thing but with buildings.
+ * `achievement_bonus`, which calculates the CPS to be gained from earning an achievement. 
  
- 
-## Installation
-
-No installation is necessary
-
 ## Usage
 
-Load the scripts by copying the code of each script (either by downloading it and opening it or by simply getting it right from Github) and pasting it into the javascript console for the Cookie Clicker tab. Then, invoke the scripts by running (typing and pressing enter):  
-
- * `get_best_upgrade()`
-   * to find the most cost-effective upgrade (not all upgrades are guaranteed to be considered by this script)  
- * `get_best_building()`
-   * to find the most cost-effective building  
- * `get_best_upgrade(); get_best_building()`
-   * to find both in one fell swoop
- * achievement_bonus()
-   * to get the increase in CPS resulting from achieving another achievement
+Just copy the contents of ccfa.js into the cookie clicker browser console. The last function call sets up a timer to call each script every 5000ms. You may find this annoying and pointless late game.
 
 ## Notes  
 
